@@ -65,5 +65,9 @@ google_assistant_relay:
 | **query** | yes | string | text input to Google Assistant
 | **response_event** | no | string | an event that contains response text from Google Assistant
 
+### example result
+
+![example result](./example_result.png)
+
 ## Credit
 - https://github.com/googlesamples/assistant-sdk-python/tree/master/google-assistant-sdk/googlesamples/assistant/grpc
