@@ -56,6 +56,7 @@ def setup(hass, config):
         if response_event:
             hass.bus.fire(response_event, {"query": query, "response": response_text})
 
+    hass.services.register(DOMAIN, 'assist', assist)
     hass.services.register(DOMAIN, 'assist2', assist2)
     return True
 
