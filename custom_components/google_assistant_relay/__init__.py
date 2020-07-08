@@ -3,6 +3,7 @@ import google.auth.transport.grpc
 import google.auth.transport.requests
 import google.oauth2.credentials
 import json
+from bs4 import BeautifulSoup
 
 from google.assistant.embedded.v1alpha2 import (
     embedded_assistant_pb2,
@@ -37,6 +38,7 @@ def setup(hass, config):
     grpc_deadline = config[DOMAIN].get(GRPC_DEADLINE, DEFAULT_GRPC_DEADLINE)
 
     textAssistant = GoogleTextAssistant(language, device_model_id, device_id, False, credentials, grpc_deadline)
+    htmlAssistant = GoogleTextAssistant(language, device_model_id, device_id, True, credentials, grpc_deadline)
 
     def assist(call):
         query = call.data.get("query")
@@ -46,7 +48,15 @@ def setup(hass, config):
         if response_event:
             hass.bus.fire(response_event, {"query": query, "response": response_text})
 
-    hass.services.register(DOMAIN, 'assist', assist)
+    def assist2(call):
+        query = call.data.get("query")
+        response_text, response_html = htmlAssistant.assist(text_query=query)
+        _LOGGER.info('<@assistant2> %s' % response_text)
+        response_event = call.data.get("response_event")
+        if response_event:
+            hass.bus.fire(response_event, {"query": query, "response": response_text})
+
+    hass.services.register(DOMAIN, 'assist2', assist2)
     return True
 
 class GoogleTextAssistant(object):
@@ -139,6 +149,10 @@ class GoogleTextAssistant(object):
             assistant_helpers.log_assist_response_without_audio(resp)
             if resp.screen_out.data:
                 html_response = resp.screen_out.data
+                
+                soup = BeautifulSoup(html_response, 'html.parser')
+                text_response = soup.get_text(', ', strip=True)
+                
             if resp.dialog_state_out.conversation_state:
                 conversation_state = resp.dialog_state_out.conversation_state
                 self.conversation_state = conversation_state
