@@ -44,7 +44,7 @@ google_assistant_relay:
 | --- | --- | --- | --- | ---
 | **credentials** | yes | 'credentials.json' | string | relative path of credentials.json file from `<config directory>`
 | **language** | no | 'en-US' | string | language of a query
-| **device_model_id** | no | 'test_device_model_id' | string | use should specify your device model id. If not, 'assist2' service is not working.
+| **device_model_id** | no | 'test_device_model_id' | string | You should specify your device model id. If not, 'assist2' service is not working.
 
 ## Services
 ### google_assistant_relay.assist
