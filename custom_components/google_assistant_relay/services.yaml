@@ -1,0 +1,19 @@
+assist:
+  description: Query to Google Assistant, get response from subtitle (can be empty).
+  fields:
+    query:
+      description: Query text to Google Assistant.
+      example: "Turn on the lights."
+    response_event:
+      description: Response from Google Assistant is returned as event, with "trigger.event.data.response"
+      example: google_response_event
+
+assist2:
+  description: Query to Google Assistant, get response from display (can be complex).
+  fields:
+    query:
+      description: Query text to Google Assistant.
+      example: "Turn on the lights."
+    response_event:
+      description: Response from Google Assistant is returned as event, with "trigger.event.data.response"
+      example: google_response_event
