@@ -4,6 +4,7 @@ import google.auth.transport.requests
 import google.oauth2.credentials
 import json
 from bs4 import BeautifulSoup
+import re
 
 from google.assistant.embedded.v1alpha2 import (
     embedded_assistant_pb2,
