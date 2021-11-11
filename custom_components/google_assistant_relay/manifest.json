@@ -5,5 +5,5 @@
   "dependencies": [],
   "codeowners": ["@jekalmin"],
   "requirements": ["google-auth-oauthlib==0.2.0", "google-assistant-grpc==0.2.1"],
-  "version": ""
+  "version": "1"
 }
