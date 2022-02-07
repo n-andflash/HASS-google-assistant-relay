@@ -149,14 +149,15 @@ class GoogleTextAssistant(object):
         for resp in assistant.Assist(iter_assist_requests(),
                                           self.deadline):
             assistant_helpers.log_assist_response_without_audio(resp)
+            #_LOGGER.debug('RAW: %s', repr(resp))
             if resp.screen_out.data:
                 html_response = resp.screen_out.data
 
                 # workaround for old Beautifulsoup ...
                 html_response = resp.screen_out.data.decode('utf-8', 'ignore')
-                html_response = re.sub('<style>[\s\S]*?</style>', '', html_response)
-                html_response = re.sub('<script>[\s\S]*?</script>', '', html_response)
-                html_response = re.sub('<template>[\s\S]*?</template>', '', html_response)
+                html_response = re.sub('<style[\s\S]*?>[\s\S]*?</style>', '', html_response)
+                html_response = re.sub('<script[\s\S]*?>[\s\S]*?</script>', '', html_response)
+                html_response = re.sub('<template[\s\S]*?>[\s\S]*?</template>', '', html_response)
 
                 soup = BeautifulSoup(html_response, 'html.parser')
                 text_response = soup.get_text(', ', strip=True)
